@@ -41,6 +41,10 @@ app.use((req, res, next) => {
     next();
 });
 
+app.get("/", (req, res) => {
+	res.send('Hello World!');
+})
+
 app.post("/api/get_budget", (req, res) => {
 	validateToken(req.body.token, res, (user) => {
 		res.json({
@@ -51,6 +55,9 @@ app.post("/api/get_budget", (req, res) => {
 		});
 	});
 });
+
+
+
 
 app.post("/api/update_income", (req, res) => {
   validateToken(req.body.token, res, (user) => {
