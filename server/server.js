@@ -22,6 +22,11 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
 const app = express();
 
 app.use(cors());
+app.use(cors({
+	origin: ["*"],
+	method:["GET","POST"],
+	credentials:true
+}))
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -36,6 +41,10 @@ app.use((req, res, next) => {
     next();
 });
 
+app.get("/", (req, res) => {
+	res.send('Hello World!');
+})
+
 app.post("/api/get_budget", (req, res) => {
 	validateToken(req.body.token, res, (user) => {
 		res.json({
@@ -46,6 +55,9 @@ app.post("/api/get_budget", (req, res) => {
 		});
 	});
 });
+
+
+
 
 app.post("/api/update_income", (req, res) => {
   validateToken(req.body.token, res, (user) => {
